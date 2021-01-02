@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.yuc.jip4fg_server.job.analysis.dao.AnalysisDAO">
+    <select id="getCompanyCount" resultType="java.lang.Long">
+        SELECT total_count FROM tb_company_count
+    </select>
+
+    <select id="getBranchCompanyCountRankList"
+            resultType="cn.yuc.jip4fg_server.job.analysis.pojo.vo.BranchCompanyCountVO">
+        SELECT * FROM tb_branch_company_count ORDER BY count DESC
+    </select>
+
+    <select id="getIndustryRankList" resultType="cn.yuc.jip4fg_server.job.analysis.pojo.vo.IndustryRankVO">
+        SELECT industry_type,`count` FROM tb_industry_rank ORDER BY count DESC
+    </select>
+
+    <select id="getCityCompanyCountList"
+            resultType="cn.yuc.jip4fg_server.job.analysis.pojo.vo.CityCompanyCountVO">
+        SELECT * FROM tb_city_company_count
+    </select>
+
+    <select id="getJobCount" resultType="java.lang.Long">
+        SELECT total_count FROM tb_job_count
+    </select>
+
+    <select id="getDoubleMoreJobCompanyRankList"
+            resultType="cn.yuc.jip4fg_server.job.analysis.pojo.vo.DoubleMoreJobCompanyVO">
+        SELECT * FROM tb_double_more_job_company limit 100
+    </select>
+
+    <select id="getHotJobTop10" resultType="cn.yuc.jip4fg_server.job.analysis.pojo.vo.HotJobVO">
+        SELECT * FROM tb_hot_job_top10 ORDER BY ranks LIMIT 10
+    </select>
+
+    <select id="getSameLocationCompanyJobCount" resultType="java.lang.Long">
+        SELECT * FROM tb_same_location_com_job_count
+    </select>
+
+    <select id="getCityJobCountTop3" resultType="cn.yuc.jip4fg_server.job.analysis.pojo.vo.CityJobCountVO">
+        SELECT * FROM tb_city_job_count
+    </select>
+
+    <select id="getSalaryTop5" resultType="cn.yuc.jip4fg_server.job.analysis.pojo.vo.SalaryTop5VO">
+        SELECT * FROM tb_salary_top5 ORDER BY ranks LIMIT 5
+    </select>
+
+    <select id="getReleaseJobByMonthList"
+            resultType="cn.yuc.jip4fg_server.job.analysis.pojo.vo.ReleaseJobCountVO">
+        SELECT * FROM tb_release_job_by_month
+    </select>
+
+    <select id="getJobSalaryPredList" resultType="cn.yuc.jip4fg_server.job.analysis.pojo.vo.JobSalaryPredVO">
+        SELECT * FROM tb_job_salary_pred WHERE job_name = #{jobName} ORDER BY year ASC
+    </select>
+    <select id="getJobNamePredList" resultType="java.lang.String">
+        SELECT DISTINCT job_name FROM tb_job_salary_pred
+    </select>
+
+
+</mapper>

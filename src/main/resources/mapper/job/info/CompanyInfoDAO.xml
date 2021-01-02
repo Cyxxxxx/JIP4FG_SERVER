@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.yuc.jip4fg_server.job.info.dao.CompanyInfoDAO">
+    
+    <select id="getCompanyInfoPage" resultType="cn.yuc.jip4fg_server.job.info.pojo.vo.CompanyItemVO">
+        SELECT
+        company_id,company_name,industry_type,location
+        FROM tb_company_info i
+        WHERE 1 = 1
+        <if test="params.companyName != null and params.companyName != ''">
+            AND INSTR(i.company_name, '${params.companyName}')
+        </if>
+        <if test="params.industryType != null and params.industryType != ''">
+            AND INSTR(i.industry_type, '${params.industryType}')
+        </if>
+        <if test="params.location != null and params.location != ''">
+            AND INSTR(i.location, '${params.location}')
+        </if>
+    </select>
+
+
+</mapper>
