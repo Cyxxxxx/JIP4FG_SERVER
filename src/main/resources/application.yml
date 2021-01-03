@@ -1,5 +1,8 @@
 # Springboot 配置
 spring:
+  profiles:
+    # 指定加载开发环境的配置(application-dev.yml)
+    active: dev
   # 数据源配置
   datasource:
     url: jdbc:mysql://${yuc.cloud-server.host}:3306/jip4fg?autoReconnect=true
