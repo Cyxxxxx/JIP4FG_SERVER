@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSON;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Set;
@@ -18,6 +19,7 @@ import java.util.Set;
  * @description 推荐服务定时任务
  * @Date 2020/12/18 15:55
  */
+@Component
 public class RecommendServiceSchedule {
 
     @Autowired

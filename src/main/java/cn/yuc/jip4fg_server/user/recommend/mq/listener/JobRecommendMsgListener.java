@@ -2,6 +2,8 @@ package cn.yuc.jip4fg_server.user.recommend.mq.listener;
 
 import cn.yuc.common.base.email.EmailService;
 import cn.yuc.common.base.exception.UserException;
+import cn.yuc.jip4fg_server.job.info.pojo.vo.JobDetailVO;
+import cn.yuc.jip4fg_server.job.info.service.JobInfoService;
 import cn.yuc.jip4fg_server.user.pojo.po.JobRecommendPO;
 import cn.yuc.jip4fg_server.user.pojo.po.UserInfoPO;
 import cn.yuc.jip4fg_server.user.recommend.mq.config.RecommendServiceQueue;
@@ -36,6 +38,9 @@ public class JobRecommendMsgListener {
     private UserService userService;
 
     @Autowired
+    private JobInfoService jobInfoService;
+
+    @Autowired
     private JobRecommendService jobRecommendService;
 
     /**
@@ -47,12 +52,6 @@ public class JobRecommendMsgListener {
      * 内容模板
      */
     private final String contentTemplate = "亲爱的%s同学，%s的%s正在热招，还不来看看吗? \n\n>><a href=\"%s\">点击查看</a>";
-
-    /**
-     * 域名
-     */
-    @Value("${global-config.domain}")
-    private String domain;
 
     /**
      * API
@@ -69,7 +68,9 @@ public class JobRecommendMsgListener {
             log.error("发生异常:", UserException.Type.EMAIL_DOESNT_EXIST.ofException());
             throw new MessageConversionException("消息消费失败，移出消息队列！");
         }
-        String url = domain + api + job.getJobId();
+        JobDetailVO jobDetail = jobInfoService.getJobDetail(job.getJobId());
+        // 使用jobId找到岗位信息的来源url
+        String url = jobDetail.getOriginUrl();
         String title = String.format(titleTemplate, job.getCompanyName(), job.getJobName());
         String content = String.format(contentTemplate, user.getUsername(), job.getCompanyName(), job.getJobName(), url);
         log.info(content);

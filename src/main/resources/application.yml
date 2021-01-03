@@ -74,5 +74,3 @@ yuc-common:
     key: yucyucyuc+-*/123 # 密key
     algorithm-str: AES/ECB/PKCS5Padding # 参数分别代表 算法名称/加密模式/数据填充方式
 
-global-config:
-  domain: http://localhost:${server.port}
